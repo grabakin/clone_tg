@@ -1,7 +1,7 @@
 # Telegram Chat Mirror
 
 This tool copies messages from one Telegram chat to another using your Telegram account.
-It works for channels, groups, and private chats. Protected content is handled by re-upload.
+It works for channels, groups, and private chats. Even if forwarding is disabled (protected content).
 
 ## What You Need
 - A Telegram account that:
