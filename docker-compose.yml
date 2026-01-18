@@ -1,0 +1,7 @@
+services:
+  tg-mirror:
+    image: vibegrab/tg-mirror:latest
+    tty: true
+    stdin_open: true
+    volumes:
+      - ./data:/data

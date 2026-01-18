@@ -1,0 +1,17 @@
+.venv/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.log
+.env
+.env.*
+data/
+mirror.db
+mirror.db-wal
+mirror.db-shm
+dist/
+build/
+*.spec
+.DS_Store
+Thumbs.db
