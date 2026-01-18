@@ -653,18 +653,26 @@ async def _choose_channel(client, label, spec=None):
 async def _select_from_dialogs(client, label):
     dialogs = []
     async for dialog in client.iter_dialogs():
-        if dialog.is_channel:
+        if dialog.is_channel or dialog.is_group or dialog.is_user:
             dialogs.append(dialog)
     if not dialogs:
-        print("No channels available in dialogs.")
+        print("No chats available in dialogs.")
         return None
     print(f"{label} selection:")
     for idx, dialog in enumerate(dialogs[:50], 1):
         entity = dialog.entity
         username = getattr(entity, "username", None)
         name = dialog.name or "Untitled"
+        if dialog.is_group:
+            kind = "group"
+        elif dialog.is_channel:
+            kind = "channel"
+        elif dialog.is_user:
+            kind = "user"
+        else:
+            kind = "chat"
         hint = f"@{username}" if username else "private"
-        print(f"{idx}. {name} ({hint}) id={entity.id}")
+        print(f"{idx}. {name} ({kind}, {hint}) id={entity.id}")
     raw = _prompt_value("Choose by number").strip()
     if not raw.isdigit():
         print("Invalid selection.")
@@ -692,8 +700,8 @@ async def main():
     if config.preflight:
         _network_preflight()
 
-    source = await _choose_channel(client, "Source channel", _env_value("CHANNEL_A"))
-    dest = await _choose_channel(client, "Destination channel", _env_value("CHANNEL_B"))
+    source = await _choose_channel(client, "Source chat", _env_value("CHANNEL_A"))
+    dest = await _choose_channel(client, "Destination chat", _env_value("CHANNEL_B"))
 
     if source.id == dest.id:
         logging.error("Source and destination channels are the same")

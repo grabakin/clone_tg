@@ -1,12 +1,12 @@
-# Telegram Channel Mirror (No-code)
+# Telegram Chat Mirror
 
-This tool copies posts from Telegram channel A to channel B using your Telegram account.
-It works even if forwarding is disabled (protected content).
+This tool copies messages from one Telegram chat to another using your Telegram account.
+It works for channels, groups, and private chats. Protected content is handled by re-upload.
 
 ## What You Need
 - A Telegram account that:
-  - is a member of channel A
-  - can post in channel B (admin or posting rights)
+  - can read the source chat (A)
+  - can post in the destination chat (B)
 - Telegram API ID and API Hash (free)
 - One of the following:
   - Prebuilt app from GitHub Releases (recommended)
@@ -57,14 +57,14 @@ The app will ask you for:
 2. Login method: qr or phone
 3. Run mode (see below)
 4. Network check (prints your public IP, optional)
-5. Channel A and Channel B (type `list` to pick from your dialogs)
+5. Source and destination chat (type `list` to pick from your dialogs)
 
 ## Run Modes
 - `oneshot` (default): copy history once and exit.
-  - Run again later to copy only new posts.
-- `links`: update links in already copied posts to point to channel B.
+  - Run again later to copy only new messages.
+- `links`: update links in already copied messages to point to chat B.
   - Use this after `oneshot` if you had a table of contents.
-- `continuous`: keep listening and copy new posts in real time.
+- `continuous`: keep listening and copy new messages in real time.
   - In this mode you can also mirror edits and deletes.
 
 ## Important: Keep the data folder
@@ -73,8 +73,9 @@ If you delete it, the app will start from scratch and re-copy everything.
 
 ## Notes
 - Big files are slow because the app must download and re-upload them.
-- If the source channel blocks downloads, those media files cannot be copied.
+- If the source chat blocks downloads, those media files cannot be copied.
 - File names are preserved when possible.
+- Secret chats are not supported by the Telegram API.
 
 ## Advanced (Optional)
 You can run without Docker if you already use Python:
